@@ -43,12 +43,12 @@
             --bg-surface: #FFFFFF;
             --bg-card: rgba(255, 255, 255, 0.85); /* 磨砂陶瓷感 */
 
-            --text-main: #1A1D23;     /* 墨黑，非纯黑 */
-            --text-muted: #64748B;
+            --text-main: #2d5943;     /* 深绿色 */
+            --text-muted: #6c8a7b;    /* 柔和的绿色 */
 
-            --border-color: rgba(0, 0, 0, 0.06); /* 极淡的深色描边 */
+            --border-color: rgba(45, 89, 67, 0.1); /* 极淡的深色描边 */
             --glass-shine: rgba(255, 255, 255, 0.5);
-            --shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08); /* 柔和的高级投影 */
+            --shadow: 0 10px 40px -10px rgba(45, 89, 67, 0.08); /* 柔和的高级投影 */
             --glow: none; /* 浅色模式去除去发光，改用投影 */
         }
 
@@ -147,7 +147,7 @@
             color: var(--primary); font-family: 'Space Grotesk', monospace; font-size: 0.85rem; font-weight: 600;
             margin-bottom: 30px;
         }
-        [data-theme="light"] .badge { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: var(--primary); }
+        [data-theme="light"] .badge { background: rgba(45, 89, 67, 0.05); border-color: rgba(45, 89, 67, 0.1); color: var(--primary); }
 
         .hero h1 {
             font-size: clamp(3rem, 6vw, 5.5rem);
@@ -339,7 +339,7 @@
 <header class="hero">
     <div class="hero-content">
         <div class="badge fade-in">v1.0 STABLE RELEASE</div>
-        <h1 class="fade-in">
+        <h1 class="fade-in" data-i18n="hero.title">
             Minecraft, <br>
             <span class="highlight">Redefined.</span>
         </h1>
@@ -423,6 +423,7 @@
 <script>
     const resources = {
         zh: {
+            "hero.title": "重构你的<br><span class=\"highlight\">方块世界</span>",
             "hero.desc": "Android 平台上最先进的 Minecraft Java 版启动器。无缝的性能体验，极致的玻璃拟态设计，以及绝对的掌控力。",
             "btn.download": "下载 APK",
             "ft.1.t": "流体界面",
@@ -435,6 +436,7 @@
             "ft.4.d": "从内存分配到自定义运行时参数，ShardLauncher 将引擎的钥匙交给你。轻松定制主题、模组和行为。"
         },
         en: {
+            "hero.title": "Minecraft, <br><span class=\"highlight\">Redefined.</span>",
             "hero.desc": "The most advanced Minecraft: Java Edition launcher for Android. Seamless performance, glassmorphic design, and absolute control.",
             "btn.download": "Download APK",
             "ft.1.t": "Fluid Interface",
