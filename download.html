@@ -87,6 +87,132 @@
         }
         .lang-btn:hover { background: var(--text-main); color: var(--bg-body); border-color: transparent; }
 
+        /* Custom Language Selector (match index.html) */
+        .custom-select-wrapper {
+            position: relative;
+            user-select: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .custom-select-trigger {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 42px;
+            padding: 0 40px 0 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            background-color: var(--bg-card);
+            backdrop-filter: blur(10px);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .custom-select-trigger:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .custom-select-trigger .custom-select-label {
+            white-space: nowrap;
+        }
+
+        .custom-select-trigger::after {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 16px;
+            transition: transform 0.3s var(--ease-smooth);
+        }
+
+        [data-theme="light"] .custom-select-trigger {
+            color: var(--text-main);
+        }
+        [data-theme="light"] .custom-select-trigger::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            min-width: 160px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background-color: var(--bg-card);
+            backdrop-filter: blur(16px) saturate(180%);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            padding: 8px;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) scale(0.98);
+            transition: all 0.3s var(--ease-smooth);
+        }
+
+        .custom-select-wrapper.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .custom-select-wrapper.open .custom-select-trigger::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .custom-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-smooth);
+        }
+
+        .custom-option + .custom-option {
+            margin-top: 4px;
+        }
+
+        .custom-option:hover {
+            background-color: var(--glass-shine);
+            color: var(--text-main);
+        }
+
+        .custom-option.selected {
+            color: var(--primary);
+            font-weight: 600;
+            background-color: var(--glass-shine);
+        }
+
+        .custom-option i {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            transition: color 0.2s var(--ease-smooth);
+        }
+
+        .custom-option:hover i,
+        .custom-option.selected i {
+            color: var(--primary);
+        }
+
+        .lang-select {
+            display: none; /* Hide original select */
+        }
+
         /* --- 下载卡片区域 --- */
         .download-wrapper {
             flex: 1; display: flex; align-items: center; justify-content: center;
@@ -218,10 +344,20 @@
         <i class="ri-arrow-left-line"></i> <span data-i18n="nav.back">Back to Home</span>
     </a>
     <div class="nav-right">
-        <!-- 简单的语言切换按钮 (点击循环切换) -->
-        <button class="lang-btn" id="lang-toggle" aria-label="Switch Language">
-            <i class="ri-translate"></i>
-        </button>
+        <div class="custom-select-wrapper">
+            <select id="lang-select" class="lang-select" aria-label="Select Language">
+                <option value="zh">简体中文</option>
+                <option value="en">English</option>
+            </select>
+            <div class="custom-select-trigger">
+                <i class="ri-global-line"></i>
+                <span class="custom-select-label"></span>
+            </div>
+            <div class="custom-options">
+                <div class="custom-option" data-value="zh"><i class="ri-earth-fill"></i><span>简体中文</span></div>
+                <div class="custom-option" data-value="en"><i class="ri-earth-fill"></i><span>English</span></div>
+            </div>
+        </div>
         <div class="brand">
             <img src="logo.png" alt="S" onerror="this.src='https://avatars.githubusercontent.com/u/148412852?s=50&v=4'">
             ShardLauncher
@@ -298,7 +434,7 @@
 </div>
 
 <footer>
-    &copy; 2023 LanRhyme. ShardLauncher Project.
+    &copy; 2025 LanRhyme. ShardLauncher Project.
 </footer>
 
 <script>
@@ -574,12 +710,54 @@
         fetchLatestCommit();
 
         // 语言切换按钮逻辑
-        document.getElementById('lang-toggle').addEventListener('click', () => {
-            const newLang = currentLang === 'en' ? 'zh' : 'en';
-            localStorage.setItem('lang', newLang);
-            applyTranslations(newLang);
-            fetchLatestCommit(); // 重新获取以更新时间格式
-        });
+        // 初始化并绑定自定义语言选择器（与主页面样式保持一致）
+        function initializeLangCustomSelect(currentLang) {
+            const wrapper = document.querySelector('.custom-select-wrapper');
+            if (!wrapper) return;
+            const trigger = wrapper.querySelector('.custom-select-trigger');
+            const triggerLabel = trigger.querySelector('.custom-select-label');
+            const options = wrapper.querySelectorAll('.custom-option');
+            const langSelectEl = document.getElementById('lang-select');
+
+            // Set native select value
+            langSelectEl.value = currentLang;
+
+            // Set initial display
+            const initialOption = wrapper.querySelector(`.custom-option[data-value="${currentLang}"]`);
+            if (initialOption) {
+                triggerLabel.textContent = initialOption.querySelector('span').textContent;
+                options.forEach(opt => opt.classList.remove('selected'));
+                initialOption.classList.add('selected');
+            }
+
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                wrapper.classList.toggle('open');
+            });
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    const selectedValue = option.getAttribute('data-value');
+                    if (selectedValue !== langSelectEl.value) {
+                        langSelectEl.value = selectedValue;
+                        localStorage.setItem('lang', selectedValue);
+                        applyTranslations(selectedValue);
+                        fetchLatestCommit();
+                    }
+                    wrapper.classList.remove('open');
+
+                    triggerLabel.textContent = option.querySelector('span').textContent;
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+
+            window.addEventListener('click', () => {
+                if (wrapper.classList.contains('open')) wrapper.classList.remove('open');
+            });
+        }
+
+        initializeLangCustomSelect(savedLang);
     });
 
 </script>
