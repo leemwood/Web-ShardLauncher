@@ -1,7 +1,7 @@
 # Installation Guide
 
 ## Requirements
-- Windows 10/11
+- Android 8 or higher
 - At least 4GB RAM
 
 ## Steps
