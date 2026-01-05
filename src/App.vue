@@ -24,24 +24,4 @@ const showFooter = computed(() => route.path !== '/generator')
   </div>
 </template>
 
-<style>
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-main {
-  min-height: 100vh;
-  /* padding-top: 80px; Removed to let views handle their own spacing */
-}
-</style>

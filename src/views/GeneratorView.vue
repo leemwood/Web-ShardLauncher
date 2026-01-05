@@ -369,37 +369,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-.font-space {
-  font-family: 'Space Grotesk', sans-serif;
-}
 
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: var(--primary);
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
-}
-
-/* Animations */
-.animate-in {
-  animation-duration: 0.3s;
-  animation-fill-mode: both;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-in-from-top-2 {
-  from { transform: translateY(-0.5rem); }
-  to { transform: translateY(0); }
-}
-
-.fade-in { animation-name: fade-in; }
-.slide-in-from-top-2 { animation-name: slide-in-from-top-2; }
-</style>
